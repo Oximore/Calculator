@@ -4,98 +4,101 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Calculator"
     StartupUri="MainWindow.xaml">
+
     <Application.Resources>
-        <!--<Style x:"NumberLabel" TargetType="Label">
-        -->
-        <!--<Setter Property="Background" Value="{StaticResource PrimaryColor}" /> -->
-        <!--
-        </Style>-->
 
-        <!--  Thème clair  -->
-        <SolidColorBrush x:Key="BackgroundColor">#F3F3F1</SolidColorBrush>
-        <!--<SolidColorBrush x:Key="BackgroundColor">green</SolidColorBrush>-->
-        <!--<SolidColorBrush x:Key="BackgroundColor">lightRed</SolidColorBrush>-->
-
-        <SolidColorBrush x:Key="PrimaryColor">#FFFFFF</SolidColorBrush>
-        <SolidColorBrush x:Key="PrimaryColorHighLight">#FAF8F7</SolidColorBrush>
-
-        <SolidColorBrush x:Key="SecondaryColor">#FAF8F7</SolidColorBrush>
-        <SolidColorBrush x:Key="SecondaryColorHighLight">
-            #F6F6F6
-        </SolidColorBrush>
-
-        <SolidColorBrush x:Key="ThirdColor">#0067C0</SolidColorBrush>
-        <SolidColorBrush x:Key="ThirdColorHighLight">#1975C5</SolidColorBrush>
-
-
-        <!--  Thème Sombre  -->
-        <!--<SolidColorBrush x:Key="BackgroundColor">#F3F3F1</SolidColorBrush>
-
-        <SolidColorBrush x:Key="PrimaryColor">#FFFFFF</SolidColorBrush>
-        <SolidColorBrush x:Key="PrimaryColorHighLight">#FAF8F7</SolidColorBrush>
-
-        <SolidColorBrush x:Key="SecondaryColor">#FAF8F7</SolidColorBrush>
-        <SolidColorBrush x:Key="SecondaryColorHighLight">
-            #F6F6F6
-        </SolidColorBrush>
-
-        <SolidColorBrush x:Key="ThirdColor">#0067C0</SolidColorBrush>
-        <SolidColorBrush x:Key="ThirdColorHighLight">#1975C5</SolidColorBrush>-->
-
-
-
-        <!--  TODO  -->
-        <!--<Style TargetType="Window">
-            <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
-        </Style>-->
-
-
-        <Style x:Key="OperationLabel" TargetType="Label">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Padding" Value="10" />
+        <Style TargetType="Grid">
+            <Setter Property="Margin" Value="3" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
-        <Style x:Key="ResultLabel" TargetType="Label">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="FontSize" Value="64" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Background" Value="Transparent" />
+        <Style x:Key="OperationStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Margin" Value="8" />
         </Style>
 
-        <Style TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="FontSize" Value="32" />
-            <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="Margin" Value="2" />
+        <Style x:Key="ResultStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="44" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+
+
+
+        <Style x:Key="NumberStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3B3B3B" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="FontSize" Value="18" />
             <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="1.5" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#323232" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#282828" />
+                </Trigger>
+            </Style.Triggers>
+
             <Style.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="2" />
+                    <Setter Property="CornerRadius" Value="4" />
                 </Style>
             </Style.Resources>
         </Style>
 
         <Style
-            x:Key="OperationButton"
-            BasedOn="{StaticResource {x:Type Button}}"
+            x:Key="OperatorStyle"
+            BasedOn="{StaticResource NumberStyle}"
             TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="Background" Value="#323232" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3B3B3B" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#323232" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style
-            x:Key="EqualButton"
-            BasedOn="{StaticResource {x:Type Button}}"
+            x:Key="EqualStyle"
+            BasedOn="{StaticResource NumberStyle}"
             TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource ThirdColor}" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="#838481" />
+            <Setter Property="Foreground" Value="Black" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#797877" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#6F6E6D" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
-
-
     </Application.Resources>
+
 </Application>
